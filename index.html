@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colegio Tlahtoani GDL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --azul: #0056b3;
+            --amarillo: #ffc107;
+            --gris: #f8f9fa;
+            --oscuro: #343a40;
+        }
+        
+        /* Estilos generales */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Barra superior */
+        .top-bar {
+            background-color: var(--oscuro);
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .social-icons a {
+            color: white;
+            margin-left: 15px;
+        }
+        
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo img {
+            height: 70px;
+        }
+        
+        /* Menú principal */
+        .menu-principal {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .menu-principal > li {
+            position: relative;
+            margin-left: 25px;
+        }
+        
+        .menu-principal a {
+            color: var(--oscuro);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 0;
+            display: block;
+            transition: color 0.3s;
+        }
+        
+        .menu-principal a:hover {
+            color: var(--azul);
+        }
+        
+        /* Dropdown */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            width: 220px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            list-style: none;
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 100;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .dropdown-menu li a {
+            padding: 8px 20px;
+            font-weight: 500;
+        }
+        
+        .dropdown-menu li a:hover {
+            background-color: var(--gris);
+        }
+        
+        /* Banner principal */
+        .main-banner {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://via.placeholder.com/1920x800?text=Colegio+Tlahtoani');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 0;
+            text-align: center;
+        }
+        
+        .main-banner h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .main-banner p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--amarillo);
+            color: var(--oscuro);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Menú interactivo */
+        .interactive-menu {
+            padding: 60px 0;
+            background-color: var(--gris);
+        }
+        
+        .interactive-menu h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--azul);
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .menu-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .menu-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        
+        .menu-item span {
+            display: block;
+            padding: 15px;
+            font-weight: 600;
+            color: var(--azul);
+        }
+        
+        /* Sección Nosotros */
+        .about-section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--azul);
+        }
+        
+        /* Galería */
+        .gallery-section {
+            padding: 60px 0;
+            background-color: var(--gris);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .gallery-item {
+            height: 200px;
+            overflow: hidden;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        /* Innovación Tecnológica */
+        .tech-section {
+            padding: 80px 0;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .tech-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .tech-card h3 {
+            color: var(--azul);
+            margin-top: 0;
+        }
+        
+        /* Contacto */
+        .contact-section {
+            padding: 80px 0;
+            background-color: var(--azul);
+            color: white;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .contact-info h3 {
+            margin-top: 0;
+        }
+        
+        .contact-info p {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-info i {
+            margin-right: 10px;
+            color: var(--amarillo);
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: none;
+        }
+        
+        .contact-form textarea {
+            height: 120px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--oscuro);
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-logo img {
+            height: 60px;
+            margin-bottom: 15px;
+        }
+        
+        .footer-links h3 {
+            color: var(--amarillo);
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: #444;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--amarillo);
+            color: var(--oscuro);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            font-size: 14px;
+        }
+        
+        /* Botón WhatsApp */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 999;
+            transition: all 0.3s;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+            }
+            
+            .menu-principal {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .menu-principal > li {
+                margin: 5px 0;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                box-shadow: none;
+                width: 100%;
+                margin-top: 5px;
+            }
+            
+            .main-banner {
+                padding: 80px 0;
+            }
+            
+            .main-banner h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra superior con contacto -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="contact-info">
+                <span><i class="fas fa-phone"></i> 33 1234 5678</span>
+                <span><i class="fas fa-map-marker-alt"></i> Av. Tlahtoani 123, GDL</span>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header y menú principal -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="https://via.placeholder.com/150x70?text=COLEGIO+TLAHTOANI" alt="Colegio Tlahtoani GDL">
+            </div>
+            <nav>
+                <ul class="menu-principal">
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li class="dropdown">
+                        <a href="#oferta">Oferta Educativa <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#preescolar">Preescolar</a></li>
+                            <li><a href="#primaria">Primaria</a></li>
+                            <li><a href="#talleres">Talleres</a></li>
+                            <li><a href="#salidas">Salidas Culturales</a></li>
+                            <li><a href="#eventos">Eventos</a></li>
+                            <li><a href="#certificaciones">Certificaciones</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#informes">Informes</a></li>
+                    <li><a href="#galeria">Galería</a></li>
+                    <li><a href="#noticias">Noticias</a></li>
+                    <li><a href="#cronica">Crónica Tlahtoani</a></li>
+                    <li><a href="#innovacion">Innovación Tecnológica</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Banner principal -->
+    <section class="main-banner">
+        <div class="container">
+            <h1>Colegio Tlahtoani GDL</h1>
+            <p>Educación de excelencia con valores y tecnología para formar los líderes del mañana</p>
+            <a href="#informes" class="btn">Agenda tu visita</a>
+        </div>
+    </section>
+
+    <!-- Menú interactivo -->
+    <section class="interactive-menu" id="menu-interactivo">
+        <div class="container">
+            <h2>Conoce nuestro colegio</h2>
+            <div class="menu-grid">
+                <a href="#preescolar" class="menu-item">
+                    <img src="https://via.placeholder.com/300x200?text=Preescolar" alt="Preescolar">
+                    <span>Preescolar</span>
+                </a>
+                <a href="#primaria" class="menu-item">
+                    <img src="https://via.placeholder.com/300x200?text=Primaria" alt="Primaria">
+                    <span>Primaria</span>
+                </a>
+                <a href="#talleres" class="menu-item">
+                    <img src="https://via.placeholder.com/300x200?text=Talleres" alt="Talleres">
+                    <span>Talleres</span>
+                </a>
+                <a href="#salidas" class="menu-item">
+                    <img src="https://via.placeholder.com/300x200?text=Salidas+Culturales" alt="Salidas Culturales">
+                    <span>Salidas Culturales</span>
+                </a>
+                <a href="#eventos" class="menu-item">
+                    <img src="https://via.placeholder.com/300x200?text=Eventos" alt="Eventos">
+                    <span>Eventos</span>
+                </a>
+                <a href="#valores" class="menu-item">
+                    <img src="https://via.placeholder.com/300x200?text=Valores" alt="Valores">
+                    <span>Valores</span>
+                </a>
+                <a href="#noticias" class="menu-item">
+                    <img src="https://via.placeholder.com/300x200?text=Noticias" alt="Noticias">
+                    <span>Noticias</span>
+                </a>
+                <a href="#cronica" class="menu-item">
+                    <img src="https://via.placeholder.com/300x200?text=Crónica+Tlahtoani" alt="Crónica Tlahtoani">
+                    <span>Crónica Tlahtoani</span>
+                </a>
+                <a href="#certificaciones" class="menu-item">
+                    <img src="https://via.placeholder.com/300x200?text=Certificaciones" alt="Certificaciones">
+                    <span>Certificaciones</span>
+                </a>
+                <a href="#innovacion" class="menu-item">
+                    <img src="https://via.placeholder.com/300x200?text=Innovación+Tecnológica" alt="Innovación Tecnológica">
+                    <span>Innovación Tecnológica</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Nosotros -->
+    <section class="about-section" id="nosotros">
+        <div class="container">
+            <h2 class="section-title">Nosotros</h2>
+            <div class="about-content">
+                <h3>Misión</h3>
+                <p>Formar individuos íntegros, críticos y creativos mediante una educación de excelencia basada en valores, que les permita enfrentar los retos del mundo actual.</p>
+                
+                <h3>Visión</h3>
+                <p>Ser reconocidos como una institución líder en educación integral, innovadora y comprometida con el desarrollo de nuestra comunidad.</p>
+                
+                <h3 id="valores">Valores</h3>
+                <ul>
+                    <li>Respeto</li>
+                    <li>Responsabilidad</li>
+                    <li>Honestidad</li>
+                    <li>Solidaridad</li>
+                    <li>Perseverancia</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Oferta Educativa - Preescolar -->
+    <section class="oferta-section" id="preescolar">
+        <div class="container">
+            <h2 class="section-title">Preescolar</h2>
+            <div class="oferta-content">
+                <p>Nuestro programa de preescolar está diseñado para estimular el desarrollo integral de los niños mediante:</p>
+                <ul>
+                    <li>Método lúdico de aprendizaje</li>
+                    <li>Desarrollo de habilidades socioemocionales</li>
+                    <li>Iniciación a la lectoescritura</li>
+                    <li>Estimulación temprana</li>
+                    <li>Actividades artísticas y deportivas</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Oferta Educativa - Primaria -->
+    <section class="oferta-section" id="primaria">
+        <div class="container">
+            <h2 class="section-title">Primaria</h2>
+            <div class="oferta-content">
+                <p>Programa académico completo que combina excelencia educativa con formación en valores:</p>
+                <ul>
+                    <li>Programa bilingüe (español-inglés)</li>
+                    <li>Enfoque en ciencias y matemáticas</li>
+                    <li>Desarrollo de habilidades digitales</li>
+                    <li>Actividades extracurriculares</li>
+                    <li>Preparación para certificaciones internacionales</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Talleres -->
+    <section class="oferta-section" id="talleres">
+        <div class="container">
+            <h2 class="section-title">Talleres</h2>
+            <div class="oferta-content">
+                <p>Complementamos la formación académica con talleres que desarrollan habilidades diversas:</p>
+                <ul>
+                    <li>Robótica y programación</li>
+                    <li>Artes plásticas y música</li>
+                    <li>Deportes (fútbol, basquetbol, voleibol)</li>
+                    <li>Teatro y expresión corporal</li>
+                    <li>Ciencias experimentales</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Salidas Culturales -->
+    <section class="oferta-section" id="salidas">
+        <div class="container">
+            <h2 class="section-title">Salidas Culturales</h2>
+            <div class="oferta-content">
+                <p>Programa de visitas educativas que complementan el aprendizaje en el aula:</p>
+                <ul>
+                    <li>Museos interactivos</li>
+                    <li>Teatros y conciertos</li>
+                    <li>Parques ecológicos</li>
+                    <li>Visitas a universidades</li>
+                    <li>Recorridos históricos</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Eventos -->
+    <section class="oferta-section" id="eventos">
+        <div class="container">
+            <h2 class="section-title">Eventos</h2>
+            <div class="oferta-content">
+                <p>Celebraciones y actividades que enriquecen la vida escolar:</p>
+                <ul>
+                    <li>Feria de ciencias</li>
+                    <li>Festivales artísticos</li>
+                    <li>Competencias deportivas</li>
+                    <li>Ceremonias cívicas</li>
+                    <li>Eventos para padres de familia</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificaciones -->
+    <section class="oferta-section" id="certificaciones">
+        <div class="container">
+            <h2 class="section-title">Certificaciones</h2>
+            <div class="oferta-content">
+                <p>Programas avalados por instituciones reconocidas:</p>
+                <ul>
+                    <li>Cambridge English</li>
+                    <li>Microsoft Office Specialist</li>
+                    <li>Robótica LEGO Education</li>
+                    <li>Certificación en habilidades digitales</li>
+                    <li>Programa de lectura avanzada</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galería -->
+    <section class="gallery-section" id="galeria">
+        <div class="container">
+            <h2 class="section-title">Galería</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300?text=Eventos+Escolares" alt="Eventos escolares">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300?text=Instalaciones" alt="Instalaciones">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300?text=Actividades" alt="Actividades">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300?text=Talleres" alt="Talleres">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300?text=Deportes" alt="Deportes">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300?text=Alumnos" alt="Alumnos">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Noticias -->
+    <section class="noticias-section" id="noticias">
+        <div class="container">
+            <h2 class="section-title">Noticias</h2>
+            <div class="noticias-content">
+                <article class="noticia">
+                    <h3>Feria Anual de Ciencias 2023</h3>
+                    <p class="fecha">15 de noviembre, 2023</p>
+                    <p>Nuestros alumnos presentaron proyectos innovadores en la Feria de Ciencias anual, demostrando su creatividad y conocimiento científico.</p>
+                </article>
+                <article class="noticia">
+                    <h3>Taller para Padres: Educación Emocional</h3>
+                    <p class="fecha">5 de noviembre, 2023</p>
+                    <p>Exitosa participación en el taller sobre cómo apoyar el desarrollo emocional de nuestros hijos en casa.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Crónica Tlahtoani -->
+    <section class="cronica-section" id="cronica">
+        <div class="container">
+            <h2 class="section-title">Crónica Tlahtoani</h2>
+            <div class="cronica-content">
+                <article class="investigacion">
+                    <h3>Los efectos del cambio climático en nuestra ciudad</h3>
+                    <p class="autor">Por: Alumnos de 6° grado</p>
+                    <p>Investigación sobre los impactos locales del cambio climático y propuestas de acción desde la escuela.</p>
+                </article>
+                <article class="investigacion">
+                    <h3>Historia de los pueblos originarios de Jalisco</h3>
+                    <p class="autor">Por: Alumnos de 4° grado</p>
+                    <p>Proyecto de recuperación de la historia y tradiciones de las culturas originarias de nuestra región.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Innovación Tecnológica -->
+    <section class="tech-section" id="innovacion">
+        <div class="container">
+            <h2 class="section-title">Innovación Tecnológica</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>Aulas Inteligentes</h3>
+                    <p>Equipadas con pantallas interactivas, sistemas de audio y conectividad para un aprendizaje dinámico.</p>
+                </div>
+                <div class="tech-card">
+                    <h3>Programación y Robótica</h3>
+                    <p>Desde preescolar hasta primaria, nuestros alumnos desarrollan habilidades de pensamiento computacional.</p>
+                </div>
+                <div class="tech-card">
+                    <h3>Plataforma Educativa</h3>
+                    <p>Sistema en línea para tareas, calificaciones y comunicación entre escuela, alumnos y padres.</p>
+                </div>
+                <div class="tech-card">
+                    <h3>Realidad Aumentada</h3>
+                    <p>Implementación de tecnología AR para hacer más interactivas las clases de ciencias e historia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Informes/Contacto -->
+    <section class="contact-section" id="informes">
+        <div class="container">
+            <h2 class="section-title">Informes</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Contáctanos</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Av. Tlahtoani 123, Col. Centro, Guadalajara, Jalisco</p>
+                    <p><i class="fas fa-phone"></i> Teléfono: 33 1234 5678</p>
+                    <p><i class="fas fa-envelope"></i> Email: contacto@tlahtoani.edu.mx</p>
+                    <p><i class="fas fa-clock"></i> Horario: Lunes a Viernes de 8:00 a 18:00 hrs</p>
+                    
+                    <h3>Redes Sociales</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    
+                    <a href="https://wa.me/5213312345678?text=Hola,%20quiero%20información%20sobre%20el%20colegio" class="btn" style="margin-top: 20px; display: inline-block;">
+                        <i class="fab fa-whatsapp"></i> Escríbenos por WhatsApp
+                    </a>
+                </div>
+                <div class="contact-form">
+                    <h3>Agenda una visita</h3>
+                    <form>
+                        <input type="text" placeholder="Nombre completo" required>
+                        <input type="email" placeholder="Correo electrónico" required>
+                        <input type="tel" placeholder="Teléfono">
+                        <select>
+                            <option value="">Interesado en...</option>
+                            <option value="preescolar">Preescolar</option>
+                            <option value="primaria">Primaria</option>
+                            <option value="talleres">Talleres</option>
+                            <option value="informacion">Información general</option>
+                        </select>
+                        <textarea placeholder="Mensaje"></textarea>
+                        <button type="submit" class="btn">Enviar solicitud</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-logo">
+                    <img src="https://via.placeholder.com/150x70?text=COLEGIO+TLAHTOANI" alt="Colegio Tlahtoani GDL">
+                    <p>Educación con valores, innovación y excelencia académica.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Enlaces rápidos</h3>
+                    <ul>
+                        <li><a href="#nosotros">Nosotros</a></li>
+                        <li><a href="#oferta">Oferta Educativa</a></li>
+                        <li><a href="#galeria">Galería</a></li>
+                        <li><a href="#noticias">Noticias</a></li>
+                        <li><a href="#informes">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Programas</h3>
+                    <ul>
+                        <li><a href="#preescolar">Preescolar</a></li>
+                        <li><a href="#primaria">Primaria</a></li>
+                        <li><a href="#talleres">Talleres</a></li>
+                        <li><a href="#certificaciones">Certificaciones</a></li>
+                        <li><a href="#innovacion">Innovación</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contacto</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Av. Tlahtoani 123, GDL</p>
+                    <p><i class="fas fa-phone"></i> 33 1234 5678</p>
+                    <p><i class="fas fa-envelope"></i> contacto@tlahtoani.edu.mx</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Colegio Tlahtoani GDL. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botón flotante de WhatsApp -->
+    <a href="https://wa.me/5213312345678?text=Hola,%20quiero%20información%20sobre%20el%20colegio" class="whatsapp-btn">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // Menú móvil
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll para enlaces
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Animación al hacer scroll
+            function animateOnScroll() {
+                const elements = document.querySelectorAll('.menu-item, .tech-card, .noticia, .investigacion');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.2;
+                    
+                    if (elementPosition < screenPosition) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            }
+            
+            // Configurar elementos animados
+            document.querySelectorAll('.menu-item, .tech-card, .noticia, .investigacion').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'all 0.6s ease';
+            });
+            
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Ejecutar al cargar
+        });
+    </script>
+</body>
+</html>
